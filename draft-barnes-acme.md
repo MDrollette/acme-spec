@@ -174,7 +174,7 @@ After the client has prepared responses to the server's challenges, it sends a s
 
 ~~~~~~~~~~
 
-Once the client has established an authorized key pair for an identifier, it can use the key pair to authorized the issuance of certificates for the identifier.  To do this, the client sends a PKCS#10 Certificate Signing Request (CSR) to the server (indicating the identifier(s) to be included in the issued certificate), and a signature over th CSR by the private key of the authorized key pair.
+Once the client has established an authorized key pair for an identifier, it can use the key pair to authorized the issuance of certificates for the identifier.  To do this, the client sends a PKCS#10 Certificate Signing Request (CSR) to the server (indicating the identifier(s) to be included in the issued certificate), and a signature over the CSR by the private key of the authorized key pair.
 
 If the server agrees to issue the certificate, then it creates the certificate and provides it in its response.  The server may also provide a URI that can be used to renew the certificate, if it allows renewal without re-validation.
 
@@ -763,8 +763,8 @@ The client responds to this Challenge by configuring a TLS server on port 443 of
 2. Generate a random 32-byte octet string S
 3. Compute Z = SHA-256(R &#124;&#124; S) (where &#124;&#124; denotes concatenation of octet strings)
 4. Generate a self-signed certificate with a subjectAltName extension containing two dNSName values:
-  1. The domain name being validated
-  2. A name formed by hex-encoding Z and appending the suffix ".acme.invalid"
+  * The domain name being validated
+  * A name formed by hex-encoding Z and appending the suffix ".acme.invalid"
 5. Compute a nonce domain name by appending the suffix ".acme.invalid" to the nonce provided by the server.
 6. Configure the TLS server such that when a client present the nonce domain name in the SNI field, the server presents the generated certificate.
 
